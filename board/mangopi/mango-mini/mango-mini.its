@@ -1,0 +1,43 @@
+/dts-v1/;
+
+/ {
+    description = "MangoPi MQ-Dual mini rootfs";
+    #address-cells = <1>;
+
+    images {
+        kernel {
+            description = "Linux kernel";
+            data = /incbin/("../../../output/images/zImage");
+            type = "kernel";
+            arch = "ARM";
+            os = "linux";
+            compression = "none";
+            load = <0x42000000>;
+            entry = <0x42000000>;
+        };
+        fdt {
+            description = "Flattened Device Tree blob";
+            data = /incbin/("../../../output/images/mango-mini.dtb");
+            type = "flat_dt";
+            arch = "ARM";
+            compression = "none";
+        };
+        ramdisk {
+            description = "buildroot";
+            data = /incbin/("../../../output/images/rootfs.cpio.lz4");
+            type = "ramdisk";
+            arch = "ARM";
+            os = "linux";
+            compression = "none";
+        };
+    };
+    configurations {
+        default = "config";
+        config {
+            description = "Linux kernel, FDT blob, ramdisk";
+            kernel = "kernel";
+            fdt = "fdt";
+            ramdisk = "ramdisk";
+        };
+    };
+};
