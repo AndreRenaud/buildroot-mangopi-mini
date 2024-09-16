@@ -14,6 +14,7 @@
 
         chosen {
                stdout-path = "serial3:1500000n8";
+               bootargs = "quiet";
         };
 
 	aliases {

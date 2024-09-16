@@ -24,7 +24,7 @@
         };
         ramdisk {
             description = "buildroot";
-            data = /incbin/("../../../output/images/rootfs.cpio.lz4");
+            data = /incbin/("../../../output/images/rootfs.cpio.zst");
             type = "ramdisk";
             arch = "ARM";
             os = "linux";
