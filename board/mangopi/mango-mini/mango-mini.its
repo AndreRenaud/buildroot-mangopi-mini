@@ -22,14 +22,6 @@
             arch = "ARM";
             compression = "none";
         };
-        ramdisk {
-            description = "buildroot";
-            data = /incbin/("../../../output/images/rootfs.cpio.zst");
-            type = "ramdisk";
-            arch = "ARM";
-            os = "linux";
-            compression = "none";
-        };
     };
     configurations {
         default = "config";

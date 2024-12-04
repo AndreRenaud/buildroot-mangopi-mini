@@ -4,9 +4,6 @@ set -e
 
 BOARD_DIR="$(dirname $0)"
 GENIMAGE_CFG=$BOARD_DIR/genimage.cfg
-MKIMAGE=$HOST_DIR/bin/mkimage
-
-$MKIMAGE -f "${BOARD_DIR}/mango-mini.its" "${BINARIES_DIR}/mango-mini.ub"
 
 rm -rf $GENIMAGE_TMP
 
