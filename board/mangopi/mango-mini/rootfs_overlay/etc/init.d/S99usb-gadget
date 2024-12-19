@@ -1,0 +1,38 @@
+#!/bin/sh
+
+
+case "$1" in
+    start)
+	echo -n "Configuring USB gadget..."
+        mount -t configfs none /sys/kernel/config/
+	GADGET=/sys/kernel/config/usb_gadget/g1
+	mkdir $GADGET
+	cd $GADGET
+	echo 0x05f9 > idVendor
+	echo 0xffff > idProduct
+	mkdir strings/0x409
+	echo "0123456789" > strings/0x409/serialnumber
+	echo "MangoPi" > strings/0x409/manufacturer
+	echo "Random Gadget" > strings/0x409/product
+	mkdir functions/acm.GS0
+	mkdir functions/gser.GS1
+	mkdir functions/ecm.usb0
+	mkdir configs/c.1
+	mkdir configs/c.1/strings/0x409
+	echo "CDC 2xACM+ECM" > configs/c.1/strings/0x409/configuration
+
+	ln -s functions/acm.GS0 configs/c.1/
+	ln -s functions/gser.GS1 configs/c.1/
+	ln -s functions/ecm.usb0 configs/c.1/
+	echo $(ls /sys/class/udc/) > UDC
+	ifconfig usb0 192.168.100.1
+	echo "OK"
+        ;;
+    stop)
+	echo "Not supported"
+        ;;
+    *)
+        echo "Usage: $0 {start}"
+        exit 1
+        ;;
+esac
